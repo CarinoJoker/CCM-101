@@ -37,6 +37,4 @@ Although their product names and specific features differ, they all provide scal
 - Amazon Web Services (AWS): https://aws.amazon.com/
 - Microsoft Azure: https://azure.microsoft.com/
 - Google Cloud: https://cloud.google.com/
-### 4. What similarities did you observe among the three cloud providers?
 
-All three cloud providers offer equivalent core infrastructure services for computing, storage, networking, and identity and access management. Although their product names and specific features differ, they all provide scalable cloud resources that organizations can use to build and operate applications.
