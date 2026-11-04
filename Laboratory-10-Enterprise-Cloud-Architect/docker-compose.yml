@@ -1,0 +1,46 @@
+services:
+  database:
+    image: mariadb:11.4
+    container_name: cloudnova-database
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: cloudnova
+      MARIADB_USER: clouduser
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - cloudnova
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    container_name: cloudnova-wordpress
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_USER: clouduser
+      WORDPRESS_DB_PASSWORD: ${MARIADB_PASSWORD}
+      WORDPRESS_DB_NAME: cloudnova
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - cloudnova
+    depends_on:
+      database:
+        condition: service_healthy
+
+volumes:
+  db_data:
+  wordpress_data:
+
+networks:
+  cloudnova:
+    driver: bridge
