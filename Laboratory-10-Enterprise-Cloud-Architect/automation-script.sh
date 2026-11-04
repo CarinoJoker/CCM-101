@@ -1,5 +1,5 @@
 
-```bash
+
 #!/bin/bash
 
 set -Eeuo pipefail
@@ -26,4 +26,5 @@ echo "Backup completed successfully!"
 echo "Backup location: $BACKUP_FILE"
 
 find "$BACKUP_DIR" -type f -name "cloudnova_backup_*.sql.gz" -mtime +7 -delete
-```
+
+
